@@ -17,12 +17,21 @@ camera = jetson.utils.videoSource(1280, 720,"csi://0")
 
 '''
 zadaci:
-	1.crop sliku(detection object returna kordinate kutije, dobro je izrezati sliku unutar te kutije prije stavljanja u klasifikaciju(line 44(ne radi)))
+	važno:
+		1.Nisam testirao dio s klasifikacijom.
+	
+		2. crop slike daje exception 
 	
 	2.umijesto camera source od jetson utilsa koristiti opencv jer je sporo i radi probleme
+	Slike koje sada dobivam stalno treba pretvarati u numpy array
+	Ne može se baš tretirati njima kao array nego ima cijela dokumentacija za rad s njima
 	
-	(manje bitno)Dataset za detekciju je napravljen od 40 slika lista na mom stolu, trebam jos slika uzet(isto sa stola da bude dobar dok ga testiram(kao da je stol vinograd), a u buducnosti
+	
+	3. (manje bitno)Dataset za detekciju je napravljen od 40 slika lista na mom stolu, trebam jos slika uzet(isto sa stola da bude dobar dok ga testiram(kao da je stol vinograd), a u buducnosti
 	na razlicitim podrucjima pogotovo vinogradu.
+	
+	Kad važni zadaci budu rješeni, ovo će biti donekle funkcionalan detektor bolesti lišća, nadalje ga unaprijeđujemo.
+	Uz 2. i 3. će biti bolji.
 	
 		
 	
