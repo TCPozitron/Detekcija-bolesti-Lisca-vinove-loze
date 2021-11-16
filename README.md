@@ -1,1 +1,1 @@
-# Detekcija-bolesti-Li-a-vinove-loze
+# Detekcija-bolesti-Lisca-vinove-loze
