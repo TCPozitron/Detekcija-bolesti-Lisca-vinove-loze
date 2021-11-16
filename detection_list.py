@@ -17,8 +17,9 @@ camera = jetson.utils.videoSource(1280, 720,"csi://0")
 
 '''
 zadaci:
-	cropat sliku 
-	umijesto camera source od jetson utilsa koristiti opencv jer je sporo i zadaje probleme
+	crop sliku(detection object returna kordinate kutije, dobro je izrezati sliku unutar te kutije prije stavljanja u klasifikaciju(line 44(ne radi)))
+		
+	umijesto camera source od jetson utilsa koristiti opencv jer je sporo i radi probleme
 
 '''
 model = tensorflow.keras.models.load_model("bolesti_vinoveloze.h5")
@@ -40,27 +41,27 @@ class Procesiranje(Thread):
     				try:
 
     					img_cropped = jetson.utils.cudaAllocMapped(width=detection.Width, height=detection.Height, format=img.format)
-                		crop_roi=(detection.Left, detection.Top, detection.Right, detection.Bottom)
-                		jetson.utils.cudaCrop(img, img_cropped, crop_roi)
+                			crop_roi=(detection.Left, detection.Top, detection.Right, detection.Bottom)
+                			jetson.utils.cudaCrop(img, img_cropped, crop_roi)
 
-                		img_cropped = jetson.utils.cudaToNumpy(img_cropped)
-                		img_cropped = img_cropped/255.0
-                		#img_cropped = img_cropped.reshape(-1, 256, 256, 3)
-                		spremne.append(img_cropped)
+                			img_cropped = jetson.utils.cudaToNumpy(img_cropped)
+                			img_cropped = img_cropped/255.0
+                			#img_cropped = img_cropped.reshape(-1, 256, 256, 3)
+                			spremne.append(img_cropped)
 
-                		klasifikacija.pop(klasifikacija.index([detection, img]))
-
-
+                			klasifikacija.pop(klasifikacija.index([detection, img]))
 
 
-                	except Exception as e:
-                		print(e)
-                try:
-                	spremne = np.array(spremne).reshape(-1, 256, 256, 3)
-                	model.predict(spremne)
 
-                except:
-                	print("greška prilikom klasifikacije")
+
+                		except Exception as e:
+                			print(e)
+               			 try:
+                			spremne = np.array(spremne).reshape(-1, 256, 256, 3)
+                			model.predict(spremne)
+
+                		except:
+                			print("greška prilikom klasifikacije")
 
 
     				
