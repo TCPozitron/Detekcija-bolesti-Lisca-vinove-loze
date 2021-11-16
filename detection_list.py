@@ -17,9 +17,15 @@ camera = jetson.utils.videoSource(1280, 720,"csi://0")
 
 '''
 zadaci:
-	crop sliku(detection object returna kordinate kutije, dobro je izrezati sliku unutar te kutije prije stavljanja u klasifikaciju(line 44(ne radi)))
+	1.crop sliku(detection object returna kordinate kutije, dobro je izrezati sliku unutar te kutije prije stavljanja u klasifikaciju(line 44(ne radi)))
+	
+	2.umijesto camera source od jetson utilsa koristiti opencv jer je sporo i radi probleme
+	
+	(manje bitno)Dataset za detekciju je napravljen od 40 slika lista na mom stolu, trebam jos slika uzet(isto sa stola da bude dobar dok ga testiram(kao da je stol vinograd), a u buducnosti
+	na razlicitim podrucjima pogotovo vinogradu.
+	
 		
-	umijesto camera source od jetson utilsa koristiti opencv jer je sporo i radi probleme
+	
 
 '''
 model = tensorflow.keras.models.load_model("bolesti_vinoveloze.h5")
