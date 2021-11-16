@@ -18,7 +18,7 @@ camera = jetson.utils.videoSource(1280, 720,"csi://0")
 '''
 zadaci:
 	cropat sliku 
-	umijesto camera source od jetson utilsa koristiti opencv
+	umijesto camera source od jetson utilsa koristiti opencv jer je sporo i zadaje probleme
 
 '''
 model = tensorflow.keras.models.load_model("bolesti_vinoveloze.h5")
