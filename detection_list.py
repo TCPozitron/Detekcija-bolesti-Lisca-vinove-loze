@@ -44,10 +44,7 @@ class Procesiranje(Thread):
                         img_arry = cv2.resize(img_arry, (256, 256))
                         klasifikacija.pop(klasifikacija.index([detection, img]))
                         lst.append(img_arry)
-
-                        
-
-
+			
                     except Exception as e:
                         print(e)
 
@@ -59,15 +56,12 @@ class Procesiranje(Thread):
                         b = np.argmax(prediction[i])
                         cv2.imshow(str(b), ary[i])
                         cv2.waitKey(0)
-
                         gotove.append([b, ary[i]])
                         
 		    lst.clear()
-                   
 
                 except Exception as e:
                     print(e)
-
 
 class Detekcija(Thread):
     def __init__(self):
@@ -82,8 +76,6 @@ class Detekcija(Thread):
 
             img = camera.Capture()
             detections = net.Detect(img, overlay='none')
-  
-
     
             for detection in detections:
                 if detection.Confidence>0.8:
