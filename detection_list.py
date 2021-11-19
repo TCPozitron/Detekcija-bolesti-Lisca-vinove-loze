@@ -22,8 +22,9 @@ camera = jetson.utils.videoSource("csi://0")
 model = tf.keras.models.load_model("bolesti.h5")
 
 klasifikacija = []
-spremne = []
+lst = []
 gotove =  []
+
 
 class Procesiranje(Thread):
     def __init__(self):
@@ -42,7 +43,7 @@ class Procesiranje(Thread):
                         img_arry = jetson.utils.cudaToNumpy(img)
                         img_arry = cv2.resize(img_arry, (256, 256))
                         klasifikacija.pop(klasifikacija.index([detection, img]))
-                        spremne.append(img_arry)
+                        lst.append(img_arry)
 
                         
 
@@ -51,27 +52,21 @@ class Procesiranje(Thread):
                         print(e)
 
                 try:
-                    druge = np.array(spremne).reshape(-1, 256, 256, 3)
-                    prediction = model.predict(druge)
+                    ary = numpy.array(lst).reshape(-1, 256, 256, 3)
+                    prediction = model.predict(ary)
 
                     for i in range(len(prediction)):
                         b = np.argmax(prediction[i])
-                        cv2.imshow(str(b), druge[i])
+                        cv2.imshow(str(b), ary[i])
                         cv2.waitKey(0)
 
-                        gotove.append([b, druge[i]])
-                        spremne.clear()
-
+                        gotove.append([b, ary[i]])
                         
+		    lst.clear()
+                   
 
                 except Exception as e:
                     print(e)
-
-
-                    
-
-
-            
 
 
 class Detekcija(Thread):
